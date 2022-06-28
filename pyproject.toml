@@ -10,6 +10,9 @@ Django = "^4.0.5"
 psycopg2 = "^2.9.3"
 gunicorn = "^20.1.0"
 gevent = "^21.12.0"
+django-extensions = "^3.1.5"
+dj-database-url = "^0.5.0"
+python-decouple = "^3.6"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
@@ -40,6 +43,52 @@ exclude = '''
   | profiling
 )/
 '''
+
+
+[tool.commitizen.customize]
+message_template = "{{change_type}}:{% if show_message %} {{message}}{% endif %}"
+example = "feature: this feature enable customize through config file"
+schema = "<type>: <body>"
+schema_pattern = "(feat :sparkles:|fix :bug:|chore :wrench:):(\\s.*)"
+bump_pattern = "^(break|new|fix|hotfix)"
+bump_map = {"break" = "MAJOR", "new" = "MINOR", "fix" = "PATCH", "hotfix" = "PATCH"}
+change_type_order = ["BREAKING CHANGE", "feat", "fix", "refactor", "perf"]
+info_path = "cz_customize_info.txt"
+info = """
+This is customized info
+"""
+commit_parser = "^(?P<change_type>feat :sparkles:|fix :bug:|chore :wrench:):\\s(?P<message>.*)?"
+changelog_pattern = "^(feat :sparkles:|fix :bug:|chore :wrench:)?(!)?"
+change_type_map = {"feat :sparkles:" = "Feat", "bug fix" = "Fix"}
+
+
+[[tool.commitizen.customize.questions]]
+type = "list"
+name = "change_type"
+choices = [
+    {value = "feat :sparkles:", name = "feat: A new feature. Correlates with MINOR in SemVer"}, 
+    {value = "fix :bug:", name = "fix: A bug fix. Correlates with PATCH in SemVeriiii"},
+    {value = "chore :wrench:", name = "Chore: Resolve task"},
+    {value = "docs :memo:", name = "docs: Documentation only changes"},
+    {value = "style :lipstick:", name = "style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)"},
+    {value = "refactor :recycle:", name = "refactor: A code change that neither fixes a bug nor adds a feature"},
+    {value = "perf :zap:", name = "perf: A code change that improves performance"},
+    {value = "test :white_check_mark:", name = "test: Adding missing or correcting existing tests"},
+    {value = "build :building_construction:", name = "build: Changes that affect the build system or external dependencies (example scopes: pip, docker, npm)"},
+    {value = "ci :construction_worker:", name = "ci: Changes to our CI configuration files and scripts"},
+    ]
+# choices = ["feature", "fix"]  # short version
+message = "Select the type of change you are committing"
+
+[[tool.commitizen.customize.questions]]
+type = "input"
+name = "message"
+message = "Body."
+
+[[tool.commitizen.customize.questions]]
+type = "confirm"
+name = "show_message"
+message = "Do you want to add body message in commit?"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

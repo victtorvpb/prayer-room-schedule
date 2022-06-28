@@ -6,17 +6,34 @@ services:
     entrypoint: python manage.py runserver 0.0.0.0:8000
     tty: true
     stdin_open: true
-    image: container_prayer-room-schedule:latest
+    image: container_prayer-room-schedule
     build:
       context: .
     environment:
-      - SQLALCHEMY_DATABASE_URI={{SQLALCHEMY_DATABASE_URI}}
+      - DATABASE_URI=${DATABASE_URI}
     volumes:
-      - ./:/opt/app/prayer_room_schedule/
-    external_links:
-      - service.postgres
+      - ./:/code/prayer_room_schedule/
+    depends_on:
+      service.postgres:
+        condition: service_started
     ports:
       - "8000:8000"
+
+  tasks-migrate:
+    container_name: migrate
+    image: container_prayer-room-schedule
+    build:
+      context: .
+    tty: true
+    stdin_open: true
+    environment:
+      - DATABASE_URI=${DATABASE_URI}
+    command: python manage.py migrate
+    volumes:
+      - .:/code
+    depends_on:
+      service.postgres:
+        condition: service_started
 
   service.postgres:
     container_name: postgres_prayer_room_schedule
