@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  prayer_room_schedule:
+    container_name: prayer_room_schedule
+    entrypoint: python manage.py runserver 0.0.0.0:8000
+    tty: true
+    stdin_open: true
+    image: container_prayer-room-schedule:latest
+    build:
+      context: .
+    environment:
+      - SQLALCHEMY_DATABASE_URI={{SQLALCHEMY_DATABASE_URI}}
+    volumes:
+      - ./:/opt/app/prayer_room_schedule/
+    external_links:
+      - service.postgres
+    ports:
+      - "8000:8000"
+
+  service.postgres:
+    container_name: postgres_prayer_room_schedule
+    image: postgres
+    volumes:
+      - postgre-data-test:/var/lib/postgresql/data
+    ports:
+      - "5431:5432"
+    environment:
+      - POSTGRES_USER=tom
+      - POSTGRES_PASSWORD=tom123
+      - POSTGRES_DB=prayer_room_schedule
+
+volumes:
+  postgre-data-test:
