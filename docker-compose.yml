@@ -3,6 +3,7 @@ version: "3"
 services:
   prayer_room_schedule:
     container_name: prayer_room_schedule
+    # entrypoint: gunicorn --bind 0.0.0.0:8000 config.wsgi
     entrypoint: python manage.py runserver 0.0.0.0:8000
     tty: true
     stdin_open: true
@@ -12,7 +13,7 @@ services:
     environment:
       - DATABASE_URI=${DATABASE_URI}
     volumes:
-      - ./:/code/prayer_room_schedule/
+      - ./:/code/
     depends_on:
       service.postgres:
         condition: service_started
@@ -31,8 +32,36 @@ services:
     command: python manage.py migrate
     volumes:
       - .:/code
+      - static_volume:/code/site/assets/
     depends_on:
       service.postgres:
+        condition: service_started
+
+  tasks-collectstatic:
+    container_name: collectstatic
+    image: container_prayer-room-schedule
+    build:
+      context: .
+    tty: true
+    stdin_open: true
+    environment:
+      - DATABASE_URI=${DATABASE_URI}
+    command: python manage.py collectstatic --no-input --clear
+    volumes:
+      - .:/code
+      - static_volume:/code/site/assets/
+    depends_on:
+      service.postgres:
+        condition: service_started
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 1337:80
+    volumes:
+      - static_volume:/code/site/assets/
+    depends_on:
+      prayer_room_schedule:
         condition: service_started
 
   service.postgres:
@@ -49,3 +78,4 @@ services:
 
 volumes:
   postgre-data-test:
+  static_volume:

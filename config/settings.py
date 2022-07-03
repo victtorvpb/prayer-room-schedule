@@ -42,10 +42,10 @@ INSTALLED_DEFAULT = [
     "django.contrib.staticfiles",
 ]
 
-INSTALLED_LIBS = ["django_extensions"]
+INSTALLED_LIBS = ["django_extensions", "rest_framework"]
 
 
-INSTALLED_MY_APPS = ["apps.scheduler.apps.SchedulerConfig"]
+INSTALLED_MY_APPS = ["apps.scheduler.apps.SchedulerConfig", "apps.client.apps.ClientConfig"]
 
 
 INSTALLED_APPS = INSTALLED_DEFAULT + INSTALLED_LIBS + INSTALLED_MY_APPS
@@ -128,9 +128,24 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+STATIC_ROOT = "/code/site/assets"
+STATICFILES_DIRS = [
+    "/code/static",
+]
+
+
+# Django Rest Framework
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        # 'rest_framework.authentication.SessionAuthentication',
+        "rest_framework.authentication.BasicAuthentication",
+    ],
+}
