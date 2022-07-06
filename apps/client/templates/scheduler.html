@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 <!-- page title -->
-{% block page-title %}ToDo| {{ block.super }}{% endblock %}
+{% block page-title %}{{ block.super }}{% endblock %}
 
 <!-- main content -->
 {% block main-content %}
+
+<div class="alert alert-warning" role="alert">
+    <h4 class="alert-heading">Importante!</h4>
+    <p>Só será possível escolher um horário por email, telefone e nome</p>
+    <!-- <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p> -->
+</div>
 <section id="scheduler">
     <div class="container">
         <div class="row">
@@ -29,12 +35,13 @@
         <div class="row">
             <div class="col">
                 <label class="form-label" for="">Digite seu nome </label>
-                <input class="form-control form-control-lg" type="text" v-model="nome" v-on:keyup="edit = true" v-on:blur="edit = true"
-                    v-on:paste="edit = true" v-on:delete="edit = true" v-on:focus="edit = true">
+                <input class="form-control form-control-lg" type="text" v-model="nome" v-on:keyup="edit = true"
+                    v-on:blur="edit = true" v-on:paste="edit = true" v-on:delete="edit = true" v-on:focus="edit = true">
             </div>
             <div class="col-auto">
                 <label class="form-label" for="">Digite seu telefone </label>
-                <input class="form-control form-control-lg" type="number" pattern="/^[0-9]+$/" v-model="telefone" v-on:keyup="edit = true" v-on:blur="edit = true" v-on:paste="edit = true" v-on:delete="edit = true" v-on:focus="edit = true">
+                <input class="form-control form-control-lg" type="text" v-model="telefone" v-on:keyup="edit = true"
+                    v-on:blur="edit = true" v-on:paste="edit = true" v-on:delete="edit = true" v-on:focus="edit = true">
 
             </div>
         </div>
@@ -42,25 +49,18 @@
         <div class="row">
             <div class="col-sm-8">
                 <label class="form-label" for="">Digite seu email </label>
-                <input class="form-control form-control-lg" type="text" v-model="email" v-on:keyup="edit = true" v-on:blur="edit = true"
-                    v-on:paste="edit = true" v-on:delete="edit = true" v-on:focus="edit = true">
+                <input class="form-control form-control-lg" type="text" v-model="email" v-on:keyup="edit = true"
+                    v-on:blur="edit = true" v-on:paste="edit = true" v-on:delete="edit = true" v-on:focus="edit = true">
 
             </div>
         </div>
 
         <div class="row">
             <div class="col-sm-2">
-            <button v-on:click="saveScheduler"type="button" class="btn btn-primary btn-lg">Salvar</button>
-        </div>
+                <button v-on:click="saveScheduler" type="button" class="btn btn-primary btn-lg">Salvar</button>
+            </div>
         </div>
 
-<!-- 
-        <div class="alert alert-success" role="alert">
-            <h4 class="alert-heading">Well done!</h4>
-            <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
-            <hr>
-                <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
-        </div> -->
     </div>
 </section>
 {% endblock %}

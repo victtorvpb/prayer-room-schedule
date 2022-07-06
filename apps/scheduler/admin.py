@@ -4,7 +4,8 @@ from .models import Scheduler, DaysWeek, HoursDays
 
 @admin.register(Scheduler)
 class SchedulerAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ['name','email']
+    list_display = ('name','email', 'days_week', 'hours_days')
 
 
 @admin.register(DaysWeek)

@@ -28,7 +28,8 @@ SECRET_KEY = "django-insecure-h+adleyi*((_!ip$*v#dp43_jm6kebxaput0bqetupf-%ueq=9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS=['http://3.94.183.102:1337', 'http://scheduler-1785322429.us-east-1.elb.amazonaws.com', 'http://localhost:8000/*']
 
 
 # Application definition
@@ -116,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "pt-BR"
 
 TIME_ZONE = "UTC"
 

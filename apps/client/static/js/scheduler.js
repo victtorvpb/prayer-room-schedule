@@ -39,7 +39,7 @@ var app = new Vue({
             let data = {
                 "name": this.nome,
                 "email": this.email,
-                "cellphone": this.telefone,
+                "cellphone": this.telefone.replace(/[^0-9]/g, ''),
                 "days_week": this.selected_day,
                 "hours_days": this.selected_hour
             };
