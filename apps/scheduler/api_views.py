@@ -1,10 +1,12 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from django.db.models import Count
+from pdb import Pdb
 
-from apps.scheduler.serializer import DaysWeekSerializer, HoursDayserializer, Schedulererializer
+from django.db.models import Count
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from apps.scheduler.models import DaysWeek, HoursDays, Scheduler
+from apps.scheduler.serializer import DaysWeekSerializer, HoursDayserializer, Schedulererializer
 
 
 class DaysWeekList(APIView):
@@ -23,11 +25,15 @@ class HoursDaysApi(APIView):
             .values_list("hours_days", flat=True)
         )
 
-        return HoursDays.objects.exclude(pk__in=list(hours_ids))
+        result = HoursDays.objects.exclude(pk__in=list(hours_ids))
+
+        return result
 
     def get(self, request, days_week_id):
         hours_days = self.get_object(days_week_id)
-        serializer = HoursDayserializer(hours_days, many=True)
+        serializer = HoursDayserializer(
+            hours_days, many=True, context={"days_week_id": days_week_id}
+        )
         return Response(serializer.data)
 
 

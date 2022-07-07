@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from apps.scheduler.models import DaysWeek, HoursDays, Scheduler
 
 
@@ -9,9 +10,20 @@ class DaysWeekSerializer(serializers.ModelSerializer):
 
 
 class HoursDayserializer(serializers.ModelSerializer):
+    seet = serializers.SerializerMethodField()
+
     class Meta:
         model = HoursDays
-        fields = ["hours", "pk"]
+        fields = ["hours", "pk", "seet"]
+
+    def get_seet(self, obj):
+        try:
+            seet = Scheduler.objects.filter(
+                days_week=self.context.get("days_week_id", 0), hours_days=obj
+            ).count()
+            return 2 - seet
+        except:
+            return 2
 
 
 class Schedulererializer(serializers.ModelSerializer):
@@ -26,31 +38,36 @@ class Schedulererializer(serializers.ModelSerializer):
                 "error_messages": {
                     "blank": "Nome é obrigatório",
                     "unique": "Nome já cadastrado",
-                    "null": "Nome é obrigatório"}
+                    "null": "Nome é obrigatório",
+                }
             },
             "email": {
                 "error_messages": {
                     "blank": "Email é obrigatório",
                     "unique": "Email já cadastrado",
-                    "null": "Email é obrigatório"}
+                    "null": "Email é obrigatório",
+                }
             },
             "cellphone": {
                 "error_messages": {
                     "blank": "Telefone é obrigatório",
                     "unique": "Telefone já cadastrado",
-                    "null": "Telefone é obrigatório"}
+                    "null": "Telefone é obrigatório",
+                }
             },
             "days_week": {
                 "error_messages": {
                     "blank": "Dia da semana é obrigatório",
                     "unique": "Dia da semana já cadastrado",
-                    "null": "Dia da semana é obrigatório"}
+                    "null": "Dia da semana é obrigatório",
+                }
             },
             "hours_days": {
                 "error_messages": {
                     "blank": "Hora é obrigatório",
                     "unique": "Hora já cadastrado",
-                    "null": "Hora é obrigatório"}
+                    "null": "Hora é obrigatório",
+                }
             },
         }
 
