@@ -14,7 +14,7 @@ class Scheduleresource(resources.ModelResource):
 
     class Meta:
         model = Scheduler
-        fields = ("name", "email", "hours_days__hours")
+        fields = ("name", "email")
 
 
 @admin.register(Scheduler)
