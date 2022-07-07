@@ -43,7 +43,7 @@ INSTALLED_DEFAULT = [
     "django.contrib.staticfiles",
 ]
 
-INSTALLED_LIBS = ["django_extensions", "rest_framework"]
+INSTALLED_LIBS = ["django_extensions", "rest_framework", "import_export"]
 
 
 INSTALLED_MY_APPS = ["apps.scheduler.apps.SchedulerConfig", "apps.client.apps.ClientConfig"]
