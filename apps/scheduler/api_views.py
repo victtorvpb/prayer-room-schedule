@@ -39,7 +39,7 @@ class SchedulerApi(APIView):
                 serializer.save()
             except:
                 return Response(
-                    {"NÃO É POSSIVEL FAZER MAIS AGENDAMENTO PARA ESTA HORA"},
+                    {"error": ["NÃO É POSSIVEL FAZER MAIS AGENDAMENTO PARA ESTA HORA"]},
                     status=status.HTTP_406_NOT_ACCEPTABLE,
                 )
             return Response(serializer.data, status=status.HTTP_201_CREATED)

@@ -34,22 +34,28 @@
         </div>
         <div class="row">
             <div class="col">
-                <label class="form-label" for="">Digite seu nome </label>
-                <input class="form-control form-control-lg" type="text" v-model="nome" v-on:keyup="edit = true"
+                <label class="form-label" for="">Digite seu Primeiro </label>
+                <input class="form-control form-control-lg" type="text" v-model="primeiro_nome" v-on:keyup="edit = true"
                     v-on:blur="edit = true" v-on:paste="edit = true" v-on:delete="edit = true" v-on:focus="edit = true">
             </div>
-            <div class="col-auto">
-                <label class="form-label" for="">Digite seu telefone </label>
-                <input class="form-control form-control-lg" type="text" v-model="telefone" v-on:keyup="edit = true"
+            <div class="col">
+                <label class="form-label" for="">Digite seu  ultimo nome</label>
+                <input class="form-control form-control-lg" type="text" v-model="ultimo_nome" v-on:keyup="edit = true"
                     v-on:blur="edit = true" v-on:paste="edit = true" v-on:delete="edit = true" v-on:focus="edit = true">
 
             </div>
         </div>
 
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col">
                 <label class="form-label" for="">Digite seu email </label>
                 <input class="form-control form-control-lg" type="text" v-model="email" v-on:keyup="edit = true"
+                    v-on:blur="edit = true" v-on:paste="edit = true" v-on:delete="edit = true" v-on:focus="edit = true">
+
+            </div>
+            <div class="col-auto">
+                <label class="form-label" for="">Digite seu telefone </label>
+                <input class="form-control form-control-lg" type="text" v-model="telefone" v-on:keyup="edit = true"
                     v-on:blur="edit = true" v-on:paste="edit = true" v-on:delete="edit = true" v-on:focus="edit = true">
 
             </div>

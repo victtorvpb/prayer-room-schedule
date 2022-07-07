@@ -12,7 +12,8 @@ var app = new Vue({
         active: true,
         selected_day: '',
         selected_hour: '',
-        nome: '',
+        primeiro_nome: '',
+        ultimo_nome: '',
         email: '',
         telefone: '',
     },
@@ -36,8 +37,31 @@ var app = new Vue({
         },
 
         saveScheduler: function () {
+
+
+            // if (!this.primeiro_nome || this.primeiro_nome==='') {
+            //     Swal.fire({
+            //         title: 'Ops!',
+            //         text: "Primeiro nome é obrigatório",
+            //         icon: 'error',
+            //         confirmButtonText: 'fechar'
+            //     })
+            //     return
+
+            // }
+            // if (!this.ultimo_nome || this.ultimo_nome==='') {
+            //     Swal.fire({
+            //         title: 'Ops!',
+            //         text: "Último nome é obrigatório",
+            //         icon: 'error',
+            //         confirmButtonText: 'fechar'
+            //     })
+            //     return
+
+            // }
+
             let data = {
-                "name": this.nome,
+                "name": this.primeiro_nome + ' ' + this.ultimo_nome,
                 "email": this.email,
                 "cellphone": this.telefone.replace(/[^0-9]/g, ''),
                 "days_week": this.selected_day,
@@ -48,26 +72,40 @@ var app = new Vue({
                 response => {
                     Swal.fire({
                         title: 'Deu tudo certo com sua escolha',
-                        text: `A Sua escolha foi this. ${response.data.nome_day} às ${response.data.nome_hora}`,
+                        text: `A Sua escolha foi,  ${response.data.nome_day} às ${response.data.nome_hora}`,
                         icon: 'success',
                         confirmButtonText: 'Cool'
                     }).then((result) => {
                         window.location.reload();
-                      })
+                    })
 
                 }
 
             ).catch(
                 function (error) {
-                    console.log(error.response.data)
+                    let errorText = ''
+                    try {
+
+                        for (var prop in error.response.data) {
+
+                            for (let index = 0; error.response.data[prop].length > index; index++) {
+                                errorText += `${error.response.data[prop][index]}  <br>`
+                                console.log(errorText)
+                            }
+                            console.log('error')
+
+                        }
+                    } catch (error) {
+                        errorText = error
+                    }
                     Swal.fire({
-                        title: 'Aconteceu um error',
-                        text: JSON.stringify(error.response.data),
+                        title: 'Ops!',
+                        html: errorText,
                         icon: 'error',
                         confirmButtonText: 'fechar'
                     }).then((result) => {
                         window.location.reload();
-                      })
+                    })
                 }
             )
         }
