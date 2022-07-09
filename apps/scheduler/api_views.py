@@ -21,7 +21,7 @@ class HoursDaysApi(APIView):
         hours_ids = (
             Scheduler.objects.values("hours_days")
             .annotate(hours_count=Count("hours_days"))
-            .filter(hours_count__gte=2, days_week=days_week_id)
+            .filter(hours_count__gte=1, days_week=days_week_id)
             .values_list("hours_days", flat=True)
         )
 
@@ -31,9 +31,7 @@ class HoursDaysApi(APIView):
 
     def get(self, request, days_week_id):
         hours_days = self.get_object(days_week_id)
-        serializer = HoursDayserializer(
-            hours_days, many=True, context={"days_week_id": days_week_id}
-        )
+        serializer = HoursDayserializer(hours_days, many=True)
         return Response(serializer.data)
 
 

@@ -1,11 +1,12 @@
 import uuid
-from django.dispatch import receiver
 
-from django_extensions.db.models import TimeStampedModel
-from django.db import models
-from apps.core.models import EmailField
-from django.db.models.signals import pre_save
 from django.core.exceptions import ValidationError
+from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django_extensions.db.models import TimeStampedModel
+
+from apps.core.models import EmailField
 
 
 class DaysWeek(TimeStampedModel):
@@ -39,7 +40,7 @@ def prevent_save_three_hours(sender, instance, **kwargs):
             sender.objects.filter(
                 days_week=instance.days_week, hours_days=instance.hours_days
             ).count()
-            >= 2
+            >= 1
         )
 
         if check_day_hours:

@@ -10,20 +10,9 @@ class DaysWeekSerializer(serializers.ModelSerializer):
 
 
 class HoursDayserializer(serializers.ModelSerializer):
-    seet = serializers.SerializerMethodField()
-
     class Meta:
         model = HoursDays
-        fields = ["hours", "pk", "seet"]
-
-    def get_seet(self, obj):
-        try:
-            seet = Scheduler.objects.filter(
-                days_week=self.context.get("days_week_id", 0), hours_days=obj
-            ).count()
-            return 2 - seet
-        except:
-            return 2
+        fields = ["hours", "pk"]
 
 
 class Schedulererializer(serializers.ModelSerializer):
