@@ -10,4 +10,3 @@ class SchedulerView(View):
 class Main(View):
     def get(self, request):
         return redirect("scheduler")
-        return render(request, "scheduler.html")
