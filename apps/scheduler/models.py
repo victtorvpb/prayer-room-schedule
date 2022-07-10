@@ -32,6 +32,7 @@ class Scheduler(TimeStampedModel):
     days_week = models.ForeignKey(DaysWeek, on_delete=models.PROTECT)
 
     hours_days = models.ForeignKey(HoursDays, on_delete=models.PROTECT)
+    areas = models.CharField(max_length=20, blank=False, null=False, default="")
 
 
 def prevent_save_three_hours(sender, instance, **kwargs):

@@ -16,6 +16,7 @@ var app = new Vue({
         ultimo_nome: '',
         email: '',
         telefone: '',
+        areas: '',
     },
     mounted() {
         axios.get('scheduler_api/days_weeks/').then(response => {
@@ -37,35 +38,46 @@ var app = new Vue({
         },
 
         saveScheduler: function () {
+            if (!this.primeiro_nome || this.primeiro_nome === '') {
+                Swal.fire({
+                    title: 'Ops!',
+                    text: "Primeiro nome é obrigatório",
+                    icon: 'error',
+                    confirmButtonText: 'fechar'
+                })
+                return
+
+            }
+            if (!this.ultimo_nome || this.ultimo_nome === '') {
+                Swal.fire({
+                    title: 'Ops!',
+                    text: "Último nome é obrigatório",
+                    icon: 'error',
+                    confirmButtonText: 'fechar'
+                })
+                return
+
+            }
 
 
-            // if (!this.primeiro_nome || this.primeiro_nome==='') {
-            //     Swal.fire({
-            //         title: 'Ops!',
-            //         text: "Primeiro nome é obrigatório",
-            //         icon: 'error',
-            //         confirmButtonText: 'fechar'
-            //     })
-            //     return
+            if (!this.areas || this.areas === '') {
+                Swal.fire({
+                    title: 'Ops!',
+                    text: "Selecione e área que você lidera",
+                    icon: 'error',
+                    confirmButtonText: 'fechar'
+                })
+                return
 
-            // }
-            // if (!this.ultimo_nome || this.ultimo_nome==='') {
-            //     Swal.fire({
-            //         title: 'Ops!',
-            //         text: "Último nome é obrigatório",
-            //         icon: 'error',
-            //         confirmButtonText: 'fechar'
-            //     })
-            //     return
-
-            // }
+            }
 
             let data = {
                 "name": this.primeiro_nome + ' ' + this.ultimo_nome,
                 "email": this.email,
                 "cellphone": this.telefone.replace(/[^0-9]/g, ''),
                 "days_week": this.selected_day,
-                "hours_days": this.selected_hour
+                "hours_days": this.selected_hour,
+                'areas': this.areas
             };
 
             axios.post('scheduler_api/scheduler/', data).then(

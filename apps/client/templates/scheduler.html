@@ -47,6 +47,18 @@
         </div>
 
         <div class="row">
+            <div class="col-auto">
+                <label for="">Selecione a área que você lidera</label>
+                <select class="form-select form-select-lg " aria-label="Default select example" v-model="areas">
+                    <option value="Links">Links</option>
+                    <option value="areas_executivas" selected>Áreas executivas</option>
+                    <option value="ministerios">Ministérios</option>
+                    <option value="Dunamis">Dunamis</option>
+                </select>
+
+            </div>
+        </div>
+        <div class="row">
             <div class="col">
                 <label class="form-label" for="">Digite seu email </label>
                 <input class="form-control form-control-lg" type="text" v-model="email" v-on:keyup="edit = true"
