@@ -39,9 +39,9 @@ class HoursDays(HoursDaysBase):
 
 
 class SchedulerBase(TimeStampedModel):
-    name = models.CharField(max_length=200, blank=False, unique=True, null=False)
-    email = EmailField(max_length=254, blank=False, unique=True, null=False)
-    cellphone = models.CharField(max_length=12, blank=False, unique=True, null=False)
+    name = models.CharField(max_length=200, blank=False, unique=False, null=False)
+    email = EmailField(max_length=254, blank=False, unique=False, null=False)
+    cellphone = models.CharField(max_length=12, blank=False, unique=False, null=False)
 
     days_week = models.ForeignKey(DaysWeek, on_delete=models.PROTECT)
 
