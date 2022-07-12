@@ -65,7 +65,10 @@ class HoursDaysPresbytery(HoursDaysBase):
 
 
 class SchedulerPresbytery(SchedulerBase):
-    pass
+
+    days_week = models.ForeignKey(DaysWeekPresbytery, on_delete=models.PROTECT)
+
+    hours_days = models.ForeignKey(HoursDaysPresbytery, on_delete=models.PROTECT)
 
 
 def prevent_save_tow_hours(sender, instance, **kwargs):
