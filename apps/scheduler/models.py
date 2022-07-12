@@ -9,22 +9,36 @@ from django_extensions.db.models import TimeStampedModel
 from apps.core.models import EmailField
 
 
-class DaysWeek(TimeStampedModel):
+class DaysWeekBase(TimeStampedModel):
     name = models.CharField(max_length=20, blank=False, unique=True, null=False)
 
     def __str__(self) -> str:
         return str(self.name)
 
+    class Meta:
+        abstract = True
 
-class HoursDays(TimeStampedModel):
+
+class DaysWeek(DaysWeekBase):
+    pass
+
+
+class HoursDaysBase(TimeStampedModel):
     hours = models.TimeField(blank=False, null=False)
     active = models.BooleanField(default=True, blank=False, null=False)
 
     def __str__(self) -> str:
         return str(self.hours)
 
+    class Meta:
+        abstract = True
 
-class Scheduler(TimeStampedModel):
+
+class HoursDays(HoursDaysBase):
+    pass
+
+
+class SchedulerBase(TimeStampedModel):
     name = models.CharField(max_length=200, blank=False, unique=True, null=False)
     email = EmailField(max_length=254, blank=False, unique=True, null=False)
     cellphone = models.CharField(max_length=12, blank=False, unique=True, null=False)
@@ -34,8 +48,27 @@ class Scheduler(TimeStampedModel):
     hours_days = models.ForeignKey(HoursDays, on_delete=models.PROTECT)
     areas = models.CharField(max_length=20, blank=False, null=False, default="")
 
+    class Meta:
+        abstract = True
 
-def prevent_save_three_hours(sender, instance, **kwargs):
+
+class Scheduler(SchedulerBase):
+    pass
+
+
+class DaysWeekPresbytery(DaysWeekBase):
+    pass
+
+
+class HoursDaysPresbytery(HoursDaysBase):
+    pass
+
+
+class SchedulerPresbytery(SchedulerBase):
+    pass
+
+
+def prevent_save_tow_hours(sender, instance, **kwargs):
     if not instance.pk:
         check_day_hours = (
             sender.objects.filter(
@@ -48,4 +81,5 @@ def prevent_save_three_hours(sender, instance, **kwargs):
             raise ValidationError("NÃO FOI POSSIVEL FAZER AGENDAMENT")
 
 
-pre_save.connect(prevent_save_three_hours, sender=Scheduler)
+pre_save.connect(prevent_save_tow_hours, sender=Scheduler)
+pre_save.connect(prevent_save_tow_hours, sender=SchedulerPresbytery)

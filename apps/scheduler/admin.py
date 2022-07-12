@@ -5,7 +5,14 @@ from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 from import_export.fields import Field
 
-from .models import DaysWeek, HoursDays, Scheduler
+from .models import (
+    DaysWeek,
+    DaysWeekPresbytery,
+    HoursDays,
+    HoursDaysPresbytery,
+    Scheduler,
+    SchedulerPresbytery,
+)
 
 
 class Scheduleresource(resources.ModelResource):
@@ -17,6 +24,7 @@ class Scheduleresource(resources.ModelResource):
         fields = ("name", "areas")
 
 
+@admin.register(SchedulerPresbytery)
 @admin.register(Scheduler)
 class SchedulerAdmin(ImportExportModelAdmin):
     search_fields = ["name", "email"]
@@ -25,14 +33,13 @@ class SchedulerAdmin(ImportExportModelAdmin):
     resource_class = Scheduleresource
 
 
+@admin.register(DaysWeekPresbytery)
 @admin.register(DaysWeek)
 class DaysWeekAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(HoursDaysPresbytery)
 @admin.register(HoursDays)
 class HoursDaysAdmin(admin.ModelAdmin):
     pass
-
-
-# admin.site.register(Scheduler, SchedulerAdmin)
