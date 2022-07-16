@@ -9,7 +9,7 @@ class SchedulerView(View):
 
 class SchedulerPresbiteryView(View):
     def get(self, request):
-        return render(request, "scheduler_presbitery.html")
+        return redirect("scheduler")
 
 
 class Main(View):
