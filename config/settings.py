@@ -12,8 +12,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
-from dj_database_url import parse as dburl
+
 from decouple import config
+from dj_database_url import parse as dburl
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,8 +29,12 @@ SECRET_KEY = "django-insecure-h+adleyi*((_!ip$*v#dp43_jm6kebxaput0bqetupf-%ueq=9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS=['http://3.94.183.102:1337', 'http://scheduler-1785322429.us-east-1.elb.amazonaws.com', 'http://localhost:8000/*']
+ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = [
+    "http://3.94.183.102:1337",
+    "http://scheduler-1785322429.us-east-1.elb.amazonaws.com",
+    "http://localhost:8000/*",
+]
 
 
 # Application definition
@@ -46,7 +51,11 @@ INSTALLED_DEFAULT = [
 INSTALLED_LIBS = ["django_extensions", "rest_framework", "import_export"]
 
 
-INSTALLED_MY_APPS = ["apps.scheduler.apps.SchedulerConfig", "apps.client.apps.ClientConfig"]
+INSTALLED_MY_APPS = [
+    "apps.scheduler.apps.SchedulerConfig",
+    "apps.client.apps.ClientConfig",
+    "apps.register.apps.RegisterConfig",
+]
 
 
 INSTALLED_APPS = INSTALLED_DEFAULT + INSTALLED_LIBS + INSTALLED_MY_APPS

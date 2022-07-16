@@ -1,6 +1,5 @@
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
-from typing_extensions import Self
 
 from apps.core.models import EmailField
 
