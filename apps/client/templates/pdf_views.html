@@ -4,6 +4,32 @@
 
 {% block page-title %}Verificar Horários {% endblock %}
 
+{% block js %}
+
+<script>
+    function OcultHorarios() {
+        var horario = document.getElementById("listaHorario");
+        var lideres = document.getElementById("listaLideres");
+
+        lideres.style.display = "none"
+        horario.style.display = "block";
+
+
+    }
+
+    function OcultLideres() {
+        var horario = document.getElementById("listaHorario");
+        var lideres = document.getElementById("listaLideres");
+
+        lideres.style.display = "block"
+        horario.style.display = "none";
+
+
+    }
+
+</script>
+
+{% endblock %}
 
 
 <!-- main content -->
@@ -12,11 +38,41 @@
     <div class="container">
         <h1> Verificar horário</h1>
         {% block main-content %}
-        <div class="embed-responsive embed-responsive-16by9">
-            <embed class="embed-responsive-item" src="{% static 'assets/teste_pdf.pdf' %}" width="1200" height="1070"
-                type='application/pdf'>
+
+
+
+
+        <br>
+        <br>
+        <br>
+        <h1> Horários</h1>
+        <a class="btn btn-primary" role="button" style="vertical-align: bottom;"
+            href="{% static 'assets/horarios_sala.pdf' %}">Baixar Horários</a>
+        <div id="listaHorario" class="embed-responsive embed-responsive-16by9">
+            <embed class="embed-responsive-item" src="{% static 'assets/horarios_sala.pdf' %}" width="1200"
+                height="1070" type='application/pdf'>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <h1> Lista de lideres em ordem Alfabética</h1>
+        <a class="btn btn-primary" role="button" style="vertical-align: bottom;"
+            href="{% static 'assets/ordem_alfabetica.pdf' %}">Baixar lista</a>
+
+
+        <div>
+            <div id="listaLideres" class="embed-responsive embed-responsive-16by9">
+                <embed class="embed-responsive-item" src="{% static 'assets/ordem_alfabetica.pdf' %}" width="1200"
+                    height="1070" type='application/pdf'>
+            </div>
         </div>
 
         {% endblock %}
 </main>
+{% endblock %}
+
+{% block js-body %}
+
 {% endblock %}
