@@ -17,9 +17,9 @@ class Register(TimeStampedModel):
 
     first_name = models.CharField(max_length=30, blank=False, null=False)
     last_name = models.CharField(max_length=30, blank=False, null=False)
-    email = EmailField(max_length=254, blank=False, unique=False, null=False)
-    zion_member = models.BooleanField(blank=False, null=False, default=True)
+    email = EmailField(max_length=254, blank=False, unique=True, null=False)
+    zion_member = models.BooleanField(blank=False, null=False, default=False)
     gender = models.CharField(max_length=1, choices=GENDER, null=False, blank=False)
-    leader = models.BooleanField(blank=False, null=False, default=True)
+    leader = models.BooleanField(blank=False, null=False, default=False)
     zion_distance = models.IntegerField(choices=Distance.choices, null=False, blank=False)
     birth_date = models.DateField(null=False, blank=False)

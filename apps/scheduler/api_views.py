@@ -1,6 +1,3 @@
-import pdb
-from pdb import Pdb
-
 from django.db.models import Count
 from rest_framework import status
 from rest_framework.response import Response

@@ -48,7 +48,11 @@ INSTALLED_DEFAULT = [
     "django.contrib.staticfiles",
 ]
 
-INSTALLED_LIBS = ["django_extensions", "rest_framework", "import_export"]
+INSTALLED_LIBS = [
+    "django_extensions",
+    "rest_framework",
+    "import_export",
+]
 
 
 INSTALLED_MY_APPS = [

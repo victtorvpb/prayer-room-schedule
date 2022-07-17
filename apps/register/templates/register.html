@@ -1,0 +1,163 @@
+{% extends 'base_register.html' %}
+{% load static %}
+<!-- page title -->
+{% block page-title %}Pagina de Registro {% endblock %}
+
+<!-- main content -->
+{% block main-content %}
+<form method="post">
+    <div class="container">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col">
+                <label for="id_first_name" class="form-label" for="">Digite seu Primeiro Nome</label>
+                <input class="form-control form-control-lg{% if form.errors.first_name %} is-invalid {% endif %}"
+                    type="text" name="first_name" maxlength="30" required="" id="id_first_name"
+                    aria-describedby="firstNameFeedback">
+
+                {% if form.errors.first_name %}
+                <div id="firstNameFeedback" class="invalid-feedback">
+                    {%for message in form.errors.first_name %}
+                    {{ message }}
+                    {% endfor %}
+
+                </div>
+                {% endif %}
+
+            </div>
+            <div class="col">
+                <label for="id_last_name" class="form-label" for="">Digite seu ultimo nome</label>
+                <input class="form-control form-control-lg {% if form.errors.last_name %} is-invalid {% endif %}"
+                    type="text" name="last_name" maxlength="30" required="" id="id_last_name"
+                    aria-describedby="lastNameFeedback">
+                {% if form.errors.last_name %}
+                <div id="lastNameFeedback" class="invalid-feedback">
+                    {% for message in form.errors.last_name %}
+                    {{ message }}
+                    {% endfor %}
+
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label for="id_email" class="form-label">Email</label>
+                <input type="email"
+                    class="form-control form-control-lg {% if form.errors.email %} is-invalid {% endif %}"
+                    maxlength="254" required="" id="id_email" name="email" aria-describedby="emailFeedback">
+                {% if form.errors.email %}
+                <div id="emailFeedback" class="invalid-feedback">
+                    {%for message in form.errors.email %}
+                    {{ message }}
+                    {% endfor %}
+
+                </div>
+                {% endif %}
+            </div>
+            <div class="col">
+                <label for="id_gender" class="form-label">Sexo</label>
+                <select name="gender" required="" id="id_gender"
+                    class="form-select form-select-lg  {% if form.errors.gender %} is-invalid {% endif %}"
+                    aria-label="Default select example" aria-describedby="genderFeedback">
+                    {% for id, name in form.gender.field.choices %}
+                    <option value="{{ id }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+                {% if form.errors.gender %}
+                <div id="emailFeedback" class="invalid-feedback">
+                    {% for message in form.errors.gender %}
+                    {{ message }}
+                    {% endfor %}
+
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="id_zion_distance" class="form-label">Distância da Zion Morumbi</label>
+                    <select name="zion_distance" required="" id="id_zion_distance"
+                        class="form-select form-select-lg {% if form.errors.zion_distance %} is-invalid {% endif %}"
+                        aria-label="Default select example" aria-describedby="zion_distanceFeedback">
+                        {% for id, name in form.zion_distance.field.choices %}
+                        <option value="{{ id }}">{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                    {% if form.errors.zion_distance %}
+                    <div id="emailFeedback" class="invalid-feedback">
+                        {% for message in form.errors.zion_distance %}
+                        {{ message }}
+                        {% endfor %}
+
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col">
+                    <label for="id_birth_date" class="form-label">Data de nascimento</label>
+
+                    <input type="date" name="birth_date" required="" id="id_birth_date"
+                        class="form-control form-control-lg {% if form.errors.birth_date %} is-invalid {% endif %}"
+                        aria-describedby="birth_dateFeedback">
+
+                    {% if form.errors.birth_date %}
+                    <div id="emailFeedback" class="invalid-feedback">
+                        {% for message in form.errors.birth_date %}
+                        {{ message }}
+                        {% endfor %}
+
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-check margin-checkbox">
+                        <label class="form-check-label" for="id_zion_member" style="margin-top: 0;">
+                            Você é membro da Zion
+                        </label>
+                        <input class="form-check-input" type="checkbox" id="id_zion_member" name="zion_member">
+
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-check margin-checkbox">
+                        <label class="form-check-label" for="id_leader" style="margin-top: 0;">
+                            Você É lider
+                        </label>
+                        <input class="form-check-input" type="checkbox" id="id_leader" name="leader">
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-2">
+                <button class="btn btn-primary btn-lg" type="submit">Salvar</button>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+{% block js-body %}
+
+<script>
+    {% if form.errors %}
+    Swal.fire({
+        title: 'Ops!',
+        html: "Verifique se todos os campos foram preenchidos",
+        icon: 'error',
+        confirmButtonText: 'fechar'
+    })
+    {% endif %}
+
+</script>
+{% endblock %}

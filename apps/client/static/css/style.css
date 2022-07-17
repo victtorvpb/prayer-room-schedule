@@ -7,6 +7,10 @@ label {
     margin-top: 2em;
 }
 
-button{
+button {
     margin-top: 3em !important;
+}
+
+.margin-checkbox {
+    margin-top: 2em;
 }
