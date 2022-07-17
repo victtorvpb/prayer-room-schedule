@@ -14,4 +14,4 @@ class SchedulerPresbiteryView(View):
 
 class Main(View):
     def get(self, request):
-        return redirect("scheduler")
+        return redirect("register_view")
