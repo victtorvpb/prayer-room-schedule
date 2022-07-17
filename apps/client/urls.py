@@ -11,6 +11,7 @@ urlpatterns = [
         name="scheduler_presbitery",
     ),
     path("", views.Main.as_view(), name="main"),
+    path("pdfs_views", views.PDFsVews.as_view(), name="pdfs_views"),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

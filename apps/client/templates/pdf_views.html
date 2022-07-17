@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- page title -->
+
+{% block page-title %}Verificar Horários {% endblock %}
+
+
+
+<!-- main content -->
+{% block main %}
+<main>
+    <div class="container">
+        <h1> Verificar horário</h1>
+        {% block main-content %}
+        <div class="embed-responsive embed-responsive-16by9">
+            <embed class="embed-responsive-item" src="{% static 'assets/teste_pdf.pdf' %}" width="1200" height="1070"
+                type='application/pdf'>
+        </div>
+
+        {% endblock %}
+</main>
+{% endblock %}

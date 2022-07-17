@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
 
@@ -23,3 +25,10 @@ class Register(TimeStampedModel):
     leader = models.BooleanField(blank=False, null=False, default=False)
     zion_distance = models.IntegerField(choices=Distance.choices, null=False, blank=False)
     birth_date = models.DateField(null=False, blank=False)
+
+
+class Checkin(TimeStampedModel):
+    register = models.ForeignKey(Register, on_delete=models.PROTECT)
+    check_in = models.DateTimeField(auto_now=True, null=False, blank=False)
+    check_out = models.DateTimeField(auto_now=True, null=True)
+    uuid = models.UUIDField(unique=True, default=uuid.uuid4)
